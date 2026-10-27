@@ -3,7 +3,7 @@ import { postBlog } from "./actions";
 import { initAuth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import PostForm from "../../components/PostForm";
+import PostForm from "@/components/PostForm";
 
 async function Page() {
   const auth = await initAuth();
