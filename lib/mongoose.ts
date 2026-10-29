@@ -8,9 +8,10 @@ declare global {
       }
     | undefined;
 }
-
-const MONGO_URI = process.env.MONGO_URI as string;
-
+const MONGO_URI = process.env.MONGODB_URI;
+if (!MONGO_URI) {
+  throw new Error("MONGODB_URI is missing in .env.local");
+}
 let cached = global.mongoose;
 
 if (!cached) {
@@ -25,9 +26,9 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached!.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
+   cached!.promise = mongoose.connect(MONGO_URI!, opts).then((mongoose) => {
+  return mongoose;
+});
   }
 
   try {

@@ -1,26 +1,447 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+  background: #0b1120;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+.home{
+  min-height: 100vh;
+}
+.hero{
+  text-align: center;
+  padding: 100px 20px;
+}
+.badge{
+   background-color: #1e293b;
+   padding: 10px 20px;
+   display: inline-block;
+   margin-bottom: 25px;
+    border-radius: 20px;
+}
+.hero h1{
+  font-size: 55px;
+  margin: 10px;
+}
+.hero span{
+  color: #818cf8;
+}
+.hero p{
+  color: #94a3b8;
+  font-size: 17px;
+  max-width: 600px;
+  margin:25px auto;
+  line-height: 1.7;
+}
+.heroButtons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.mainButton{
+  background-color:#6366f1 ;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.secondButton{
+  color: white;
+  border: 1px solid gray;
+  padding: 15px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.mainButton:hover {
+  background-color: #4f46e5;
+}
+.secondButton:hover {
+  background-color: #1e293b;
+}
+.featureCard {
+  background-color: #111827;
+  width: 350px;
+  padding: 45px 35px;
+  border-radius: 15px;
+  border: 1px solid #334155;
+  text-align: center;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.featureCard:hover {
+  border-color: #6366f1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.featureCard h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.featureCard p {
+  color: #94a3b8;
+  font-size: 17px;
+  line-height: 1.7;
+}
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 70px 30px;
+}
+input, textarea{
+  background-color: #1e293b;
+  border: 1px solid #475569;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+button {
+  cursor: pointer;
+}
+.blogsPage{
+  padding: 60px;
+  text-align: center;
+}
+.blogsPage h1{
+  font-size: 40px;
+}
+.blogsPage > p{
+  color: #94a3b8;
+  margin-top: 15px;
+}
+.blogsList{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 50px;
+}
+.blogCard{
+  background-color: #111827;
+  border: 1px solid #334155;
+   border-radius: 12px;
+  width: 450px;
+  padding: 30px;
+  text-align: left;
+  text-decoration: none;
+  color: white;
+}
+.blogCard:hover{
+  border-color: #6366f1;
+}
+.blogCard h2{
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+.blogCard p{
+  color: #94a3b8;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+.singleBlog{
+  width: 850px;
+  margin: 70px auto;
+  padding: 40px;
+  background-color: #111827;
+  border-radius: 15px;
+}
+.blogCard span{
+  color: #818cf8;
+}
+.singleBlog h1{
+  font-size: 40px;
+}
+
+.blogDate{
+  color: #94a3b8;
+  margin-top: 15px;
+}
+
+.blogContent{
+  margin-top: 40px;
+}
+
+.blogContent p{
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.createPage{
+  width: 80%;
+  margin:60px auto;
+  padding: 20px;
+}
+.createPage h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+.createPage > p {
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+.createBox {
+  background-color: #111827;
+  padding: 30px;
+  border: 1px solid #334155;
+  border-radius: 15px;
+}
+.createBox label {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 12px;
+}
+.createBox input {
+  width: 100%;
+  padding: 15px;
+  background-color: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+}
+.createBox h3{
+  margin-top: 35px;
+  margin-bottom: 15px;
+  font-size: 19px;
+}
+.paragraphBox {
+  background-color: #1e293b;
+  padding: 15px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.paragraphTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.paragraphTop button {
+  background-color: #7f1d1d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 15px;
+}
+
+.paragraphBox textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 15px;
+  background-color: #111827;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+}
+
+.addParagraph {
+  width: 100%;
+  padding: 14px;
+  background-color: #1e293b;
+  color: #a5b4fc;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.addParagraph:hover {
+  background-color: #312e81;
+}
+
+.imagePreview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.postButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+
+.cancelButton {
+  padding: 13px 25px;
+  background-color: #334155;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.publishButton {
+  padding: 13px 30px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.publishButton:hover {
+  background-color: #1d4ed8;
+}
+
+.publishButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.postMessage {
+  margin-top: 20px;
+  color: #a5b4fc;
+}
+.blogImage{
+  width: 100%;
+  min-height: 400px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-top: 25px;
+}
+.blogLink{
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top:25px;
+  text-decoration: none;
+}
+.deleteButton {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+.deleteButton:hover {
+  background-color: #b91c1c;
+}
+.deleteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.aboutPage{
+  width: 85%;
+  margin: 0 auto;
+  padding: 60px 30px;
+}
+.aboutHero{
+  text-align: center;
+  margin-bottom: 50px;
+}
+.about{
+  display: inline-block;
+  background-color: #1e3a5f;
+  color:#60a5fa ;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.aboutHero h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+.aboutHero p {
+  color: #94a3b8;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.aboutCards {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 60px;
+}
+.aboutCard {
+  flex: 1;
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 15px;
+  padding: 30px;
+}
+.aboutCard h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.aboutCard p {
+  color: #cbd5e1;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+.aboutTopics {
+  margin-bottom: 60px;
+}
+
+.aboutTopics h2 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+.topicCards{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.topicCard {
+  flex: 1 1 220px;
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 25px;
+}
+.topicCard h3{
+  margin-bottom: 15px;
+  color: #60a5fa;
+}
+.topicCard p{
+  color: #94a3b8;
+  line-height: 1.6;
+}
+.aboutTech{
+  text-align: center;
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 15px;
+  padding: 35px;
+}
+
+.aboutTech h2{
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.aboutTech p{
+  color: #94a3b8;
+  line-height: 1.7;
+}
+.techList{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 25px;
+}
+.techList span{
+  background-color: #1e3a5f;
+  color: #93c5fd;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.aboutThanks{
+  text-align: center;
+  margin-top: 50px;
+  color: #94a3b8;
+  font-size: 17px;
 }
