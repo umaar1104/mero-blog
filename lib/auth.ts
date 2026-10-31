@@ -5,10 +5,20 @@ import dbConnect from "./mongoose";
 export async function initAuth() {
   const mongooseInstance = await dbConnect();
   const client = mongooseInstance.connection.getClient();
-  const instance = betterAuth({
-    database: mongodbAdapter(client.db()),
-    emailAndPassword: { enabled: true },
-  });
 
-  return instance;
+  return betterAuth({
+    database: mongodbAdapter(client.db()),
+
+    baseURL: process.env.BETTER_AUTH_URL,
+    secret: process.env.BETTER_AUTH_SECRET,
+
+    trustedOrigins: [
+      "https://mero-blog-ochre.vercel.app",
+      "http://localhost:3000",
+    ],
+
+    emailAndPassword: {
+      enabled: true,
+    },
+  });
 }

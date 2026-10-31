@@ -1,5 +1,4 @@
 "use server";
-
 import Post from "@/lib/PostModel";
 import dbConnect from "@/lib/mongoose";
 import { initAuth } from "@/lib/auth";
@@ -15,9 +14,8 @@ export interface PostType {
   image?: string;
 }
 
-export async function postBlog(post: PostType) {
+async function getUser() {
   const auth = await initAuth();
-
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -25,42 +23,44 @@ export async function postBlog(post: PostType) {
   if (!session) {
     throw new Error("Please log in first");
   }
-  const adminId = process.env.ADMIN_USER_ID;
-  if (!adminId || session.user.id !== adminId) {
-    throw new Error("Only admin can create posts");
-  }
+
+  return session.user;
+}
+
+export async function postBlog(post: PostType) {
+  const user = await getUser();
   await dbConnect();
-await Post.create({
-  ...post,
-  id: crypto.randomUUID(),
-  authorId: session.user.id,
-});
+
+  await Post.create({
+    title: post.title,
+    content: post.content,
+    image: post.image,
+    link: post.link,
+    date: new Date(),
+    id: crypto.randomUUID(),
+    authorId: user.id,
+  });
+
   return { success: true };
 }
+
 export async function deletePost(id: string) {
-  const auth = await initAuth();
-
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    throw new Error("Please log in first");
-  }
-
-  const adminId = process.env.ADMIN_USER_ID;
-
-  if (!adminId || session.user.id !== adminId) {
-    throw new Error("Only admin can delete posts");
-  }
-
+  const user = await getUser();
   await dbConnect();
 
-  const result = await Post.deleteOne({ id });
+  const post = await Post.findOne({ id });
 
-  if (result.deletedCount === 0) {
+  if (!post) {
     throw new Error("Post not found");
   }
 
+  const isAdmin = user.id === process.env.ADMIN_USER_ID;
+  const isOwner = post.authorId === user.id;
+
+  if (!isAdmin && !isOwner) {
+    throw new Error("You can only delete your own posts");
+  }
+
+  await Post.deleteOne({ id });
   return { success: true };
 }

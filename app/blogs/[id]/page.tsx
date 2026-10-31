@@ -1,9 +1,7 @@
-import type { PostType } from "@/app/post/actions";
 import Post from "@/lib/PostModel";
 import dbConnect from "@/lib/mongoose";
 import { initAuth } from "@/lib/auth";
 import DeleteButton from "@/components/DeleteButton";
-
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
@@ -15,27 +13,39 @@ async function BlogContent({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
   await connection();
   await dbConnect();
-  const post = (await Post.findOne({ id })) as PostType | null;
+
+  const post = await Post.findOne({ id });
+
   if (!post) {
     redirect("/blogs");
   }
+
   const auth = await initAuth();
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  const isAdmin =
+
+  const userId = session?.user.id;
+  const isAdmin = !!userId &&
     !!process.env.ADMIN_USER_ID &&
-    session?.user.id === process.env.ADMIN_USER_ID;
+    userId === process.env.ADMIN_USER_ID;
+
+  const isOwner = !!userId && post.authorId === userId;
+  const canDelete = isAdmin || isOwner;
+
   return (
     <div className="singleBlog">
       <h1>{post.title}</h1>
+
       <p className="blogDate">
         {new Date(post.date).toLocaleDateString()}
       </p>
+
       <div className="blogContent">
-        {post.content.map((paragraph, i) => (
+        {post.content.map((paragraph: string, i: number) => (
           <p key={i}>{paragraph}</p>
         ))}
 
@@ -46,6 +56,7 @@ async function BlogContent({
             className="blogImage"
           />
         )}
+
         {post.link && (
           <a
             href={post.link}
@@ -57,10 +68,12 @@ async function BlogContent({
           </a>
         )}
       </div>
-      {isAdmin && <DeleteButton id={post.id} />}
+
+      {canDelete && <DeleteButton id={post.id} />}
     </div>
   );
 }
+
 export default function Page({
   params,
 }: {
