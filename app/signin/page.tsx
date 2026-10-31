@@ -1,70 +1,115 @@
-"use client";
 
+"use client";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface UserType {
-  email: string;
-  name: string;
-  password: string;
-  signUp: boolean;
-}
-
 function Page() {
-  const [user, setUser] = useState<UserType>({
-    email: "",
-    name: "",
-    password: "",
-    signUp: false,
-  });
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [signUp, setSignUp] = useState(true);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
-  async function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (user.signUp) {
-      await authClient.signUp.email(
-        { ...user },
-        { onSuccess: () => router.push("/") },
-      );
-    } else {
-      await authClient.signIn.email(
-        { ...user },
-        { onSuccess: () => router.push("/") },
-      );
+    setMessage("");
+
+    if (signUp && password.length < 8) {
+      setMessage("Password must be at least 8 characters.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const result = signUp
+        ? await authClient.signUp.email({
+            email,
+            name,
+            password,
+          })
+        : await authClient.signIn.email({
+            email,
+            password,
+          });
+
+      if (result.error) {
+        setMessage(
+          signUp
+            ? "Could not create account. This email may already be registered."
+            : "Invalid email or password."
+        );
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch {
+      setMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSignIn}>
-      <h1>Sign In</h1>
+    <form onSubmit={handleSubmit}>
+      <h1>{signUp ? "Sign Up" : "Sign In"}</h1>
+
       <input
+        type="email"
         placeholder="Email"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
       />
-      {user.signUp && (
+      {signUp && (
         <input
+          type="text"
           placeholder="Name"
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
         />
       )}
+
       <input
         type="password"
         placeholder="Password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        minLength={signUp ? 8 : 1}
+        required
       />
-      <label>
-        <input
-          type="checkbox"
-          checked={user.signUp}
-          onChange={(e) => setUser({ ...user, signUp: e.target.checked })}
-        />
-        Sign up
-      </label>
-      <button type="submit">Submit</button>
+
+      {signUp && (
+        <p>Password must contain at least 8 characters.</p>
+      )}
+
+      {message && <p>{message}</p>}
+
+      <button type="submit" disabled={loading}>
+        {loading ? "Please wait..." : signUp ? "Sign Up" : "Sign In"}
+      </button>
+
+      <p>
+        {signUp
+          ? "Already have an account?"
+          : "Don't have an account?"}
+        {" "}
+        <button
+          type="button"
+          onClick={() => {
+            setSignUp(!signUp);
+            setMessage("");
+          }}
+        >
+          {signUp ? "Sign In" : "Sign Up"}
+        </button>
+      </p>
     </form>
   );
 }
