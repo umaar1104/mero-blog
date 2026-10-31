@@ -1,6 +1,13 @@
 # MERO - blog
-## How sign up
-Enter your e-mail adress, name and password 
+## Create an Account
+1. Open the Sign Up page.
+2. Enter your name and email address.
+3. Create a password with at least 8 characters. Choose a password for your own account.
+Click Submit to complete registration.
+## Sign In
+1. Enter your registered email address and password.
+2. Click Submit to log in.
+3. If your password is incorrect, you will see an "Incorrect password" message.
 ## Purpose
 It is for reveal my thoughts in modern and proper way to more people, therefore I decided to develop project like that. Now, everyone can use it for blog anything they want
 
