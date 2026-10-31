@@ -1,5 +1,6 @@
 # MERO - blog
-
+## How sign up
+Enter your e-mail adress, name and password 
 ## Purpose
 It is for reveal my thoughts in modern and proper way to more people, therefore I decided to develop project like that. Now, everyone can use it for blog anything they want
 
