@@ -42,49 +42,20 @@ input:focus, textarea:focus {
   margin-bottom: 25px;
   border-radius: 20px;
 }
-
 .hero h1 { font-size: 55px; margin: 10px; }
-.hero span { color: #818cf8; }
 .hero p { max-width: 600px; margin: 25px auto; }
-
 .heroButtons {
   display: flex;
   justify-content: center;
   gap: 15px;
   margin-top: 35px;
 }
-.mainButton, .secondButton {
-  color: white;
-  padding: 15px 25px;
-  border-radius: 10px;
-  text-decoration: none;
-}
-.mainButton { 
-  background: #6366f1;
- }
-.mainButton:hover {
-   background: #4f46e5;
-   }
-.secondButton { 
-  border: 1px solid gray; 
-}
-.secondButton:hover { 
-  background: #1e293b; 
-}
-.featureCard, .blogCard, .createBox,
-.paragraphBox, .singleBlog, .aboutCard,
-.topicCard, .aboutTech {
-  background: #111827;
-  border: 1px solid #334155;
-}
-.featureCard, .singleBlog, .createBox,
-.aboutCard, .aboutTech {
-  border-radius: 15px;
-}
-.featureCard {
+.fCard {
   width: 350px;
-  padding: 45px 35px;
   text-align: center;
+  border: 2px solid whitesmoke;
+  border-radius: 15px;
+  padding: 20px;
 }
 .features {
   display: flex;
@@ -110,6 +81,7 @@ input:focus, textarea:focus {
   text-align: left;
   text-decoration: none;
   color: white;
+  border: 2px solid whitesmoke;
 }
 .blogCard h2 { 
   font-size: 34px;
@@ -124,12 +96,13 @@ input:focus, textarea:focus {
   width: 850px;
   margin: 70px auto;
   padding: 40px;
-  border: none;
+  border: 2px solid gray;
+  border-radius: 10px;
 }
-.blogDate {
+.Date {
    margin-top: 15px; 
 }
-.blogContent {
+.blogCon {
    margin-top: 40px;
  }
 .blogImage {
@@ -263,15 +236,6 @@ input:focus, textarea:focus {
   text-align: center;
   margin-bottom: 50px;
 }
-.about, .aboutBadge {
-  display: inline-block;
-  background: #1e3a5f;
-  color: #60a5fa;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 13px;
-  margin-bottom: 20px;
-}
 .aboutCards {
   display: flex;
   gap: 25px;
@@ -279,26 +243,8 @@ input:focus, textarea:focus {
 }
 .aboutCard {
   padding: 30px;
-}
-.aboutTopics {
-   margin-bottom: 60px; 
-  }
-.aboutTopics h2 {
-  text-align: center;
-  font-size: 30px;
-  margin-bottom: 30px;
-}
-.topicCards {
-  display: flex;
-  gap: 20px;
-}
-.topicCard {
-  border-radius: 12px;
-  padding: 25px;
-}
-.topicCard h3 {
-  margin-bottom: 15px;
-  color: #60a5fa;
+  border: 2px solid whitesmoke;
+  border-radius: 15px;
 }
 .aboutTech {
   text-align: center;
